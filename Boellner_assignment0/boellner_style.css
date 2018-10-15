@@ -1,0 +1,34 @@
+#Name  {
+background-color: darkblue;
+color: white;
+}
+h3 {
+text-align: center;
+text-decoration: underline;
+}
+h4 {
+    font-weight: 900;
+
+}
+#MasterBlock {
+text-align: center;
+width: 60%; 
+column-count: 2;
+
+}
+#PugPhoto {
+width: 100%;
+height: auto; 
+
+
+}
+#PrimaryBlock{
+    padding-bottom: 10%;
+    
+}
+
+ #SecondaryBlock {
+   text-align: justify;
+   letter-spacing: 3px;
+   outline-style: dotted;
+}

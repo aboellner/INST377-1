@@ -4,7 +4,12 @@
 <style type="text/css">
 	div {
 		margin-bottom: 20px;
-	}
+	
+    }
+    
+    }
+
+   
 </style>
 
 <!-- Data -->
@@ -205,11 +210,160 @@ var organizations = [
 <script>
 // outputs the first item of the organizations array. Just for testing.
 console.log(organizations[0]); 
-
 // Your JavaScript code goes here
+//We are interested in several key things, so we want to have elements we can display the items with 
+/* The quesions are
+ How many non-profit organizations are listed?
+ How many organizations are less than 10 years old?
+ How many of these organizations are North American?
+How many organizations used the Transportation type of data?
+One other feature of the data that you find interesting (cannot be a single value, must be some summary or pattern within the data)
+*/
+var non_profit_orgo = 0; 
+var young_org = 0; 
+var NA_org = 0; 
+var trans_org = 0;
+var country_freq = 0; 
+var index = 0; 
+var Region_Count_Array = [
+    ["East Asia & Pacific", 0],
+    ["Europe & Central Asia", 0],
+    ["North America", 0],
+    ["Latin America & Carribbean", 0]
+
+];
+//We begin first by getting the array made by organizations and copying it so we can perform iterations over it without makign changes to original
+var organizations_temp = organizations; 
+
+while (index < organizations_temp.length){
+if(organizations_temp[index]["Organization Type"] == "Nonprofit"){
+
+    non_profit_orgo++; 
+}
+if(organizations_temp[index]["Founding Year"] > 2008){
+
+young_org++; 
+}
+if(organizations_temp[index]["Region"] == "North America"){
+    Region_Count_Array[2][1]++;
+NA_org++; 
+}
+if(organizations_temp[index]["Type of Data Used"].includes("Transportation")){
+
+trans_org++; 
+}
+if(organizations_temp[index]["Region"] == "East Asia & Pacific"){
+    Region_Count_Array[0][1]++; 
+
+}
+if(organizations_temp[index]["Region"] == "Europe & Central Asia"){
+    Region_Count_Array[1][1]++; 
+
+}
+if(organizations_temp[index]["Region"] == "Latin America & Carribbean"){
+    Region_Count_Array[3][1]++; 
+
+}
 
 
+
+
+    index++
+}
+index = 0; 
+function generate_table() {
+  // get the reference for the body
+  var body = document.getElementsByTagName("body")[0];
+ 
+  // creates a <table> element and a <tbody> element
+  var tbl = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+ 
+  // creating all cells
+  for (var i = 0; i < 2; i++) {
+    // creates a table row
+    var row = document.createElement("tr");
+ 
+    for (var j = 0; j < 5; j++) {
+      // Create a <td> element and a text node, make the text
+      // node the contents of the <td>, and put the <td> at
+      // the end of the table row
+      var cell = document.createElement("td");
+      if(j==0 && i==0){
+        var cellText = document.createTextNode("How many non-profit organizations are listed?");
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==1 && i==0){
+        var cellText = document.createTextNode("How many organizations are less than 10 years old?");
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==2 && i==0){
+        var cellText = document.createTextNode(" How many of these organizations are North American?");
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==3 && i==0){
+        var cellText = document.createTextNode("How many organizations used the Transportation type of data?");
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==4 && i==0){
+        var cellText = document.createTextNode("How often was each region mentioned?");
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      if(j==0 && i==1){
+        var cellText = document.createTextNode(non_profit_orgo);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==1 && i==1){
+        var cellText = document.createTextNode(young_org);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==2 && i==1){
+        var cellText = document.createTextNode(NA_org);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==3 && i==1){
+        var cellText = document.createTextNode(trans_org);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      else if (j==4 && i==1){
+        var cellText = document.createTextNode(Region_Count_Array);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      }
+      
+    }
+ 
+    // add the row to the end of the table body
+    tblBody.appendChild(row);
+  }
+ 
+  // put the <tbody> in the <table>
+  tbl.appendChild(tblBody);
+  // appends <table> into <body>
+  body.appendChild(tbl);
+  // sets the border attribute of tbl to 2;
+  tbl.setAttribute("border", "2");
+}
 </script>
-
+<input type="button" value="Generate a table." onclick="generate_table()">
 </body>
 </html>
